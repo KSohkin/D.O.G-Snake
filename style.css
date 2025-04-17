@@ -22,20 +22,26 @@ canvas {
 }
 
 .button-cont {
-  gap: 30px;
-  margin-top: 150px;
+    display: grid;
+    margin-top: 15%;
 }
 
 button {
-  width: 100px;
-  height: 50px;
-  padding: 10px;
-  display: flex;
-  justify-self: center;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
-  color: white;
-  margin-top: 10px;
-  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 22%, rgba(146, 14, 240, 1) 52%, rgba(144, 213, 255, 1) 75%);
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: white;
+    background: linear-gradient(90deg,rgba(227, 44, 230, 1) 22%, rgba(146, 14, 240, 1) 52%, rgba(144, 213, 255, 1) 75%);
+}
+
+h2 {
+    color:rgba(144, 213, 255, 1) ;
+    justify-self: center;
+    margin-top: 80px;
+    
 }

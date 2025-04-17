@@ -6,19 +6,19 @@ function gridSnap(val) {
   return Math.floor(val / snake.size) * snake.size;
 }
 
-// 🖼 Images
+// Images
 var keha = new Image();
-keha.src = 'D.O.G keha.png';
+keha.src = 'SnakePics/D.O.G keha.png';
 var pea = new Image();
-pea.src = 'D.O.G pea.png';
+pea.src = 'SnakePics/D.O.G pea.png';
 var saba = new Image();
-saba.src = 'D.O.G saba.png';
+saba.src = 'SnakePics/D.O.G saba.png';
 var foodImage = new Image();
-foodImage.src = 'd.o.g_food.png';
+foodImage.src = 'SnakePics/d.o.g_food.png';
 
 game = {
   score: 0,
-  fps: 2,
+  fps: 8,
   over: false,
   message: null,
 
@@ -26,7 +26,7 @@ game = {
     game.over = false;
     game.message = null;
     game.score = 0;
-    game.fps = 10;
+    game.fps = 8;
     snake.init();
     food.set();
   },
@@ -34,6 +34,7 @@ game = {
   stop: function () {
     game.over = true;
     game.message = 'A fatal mistake! - PRESS SPACEBAR';
+
   },
 
   drawBox: function (x, y, size, color) {
@@ -49,7 +50,7 @@ game = {
 
   drawScore: function () {
     context.fillStyle = '#999';
-    context.font = (canvas.height) + 'px Impact, sans-serif';
+    context.font = (canvas.height / 10) + 'px Impact, sans-serif';
     context.textAlign = 'center';
     context.fillText(game.score, canvas.width / 2, canvas.height * 0.9);
   },
@@ -136,25 +137,26 @@ snake = {
     }
   },
 
-  drawSection: function (section, pikkus, index) {
-    let x = section.x;
-    let y = section.y;
-    let direction = section.direction;
-
+  drawSection: function(section, pikkus, index) {
     let rotation = 0;
-    switch (direction) {
+    let direction = section.direction; // Use the section's direction, not the snake's
+    
+    switch(direction) {
       case 'left': rotation = -90; break;
       case 'right': rotation = 90; break;
       case 'down': rotation = 180; break;
       case 'up': rotation = 0; break;
     }
 
+    let x = section.x;
+    let y = section.y;
+
     if (index === pikkus - 1) {
-      game.drawImage(pea, x - 25, y - 25, snake.size + 20, snake.size + 20, rotation);
+      game.drawImage(pea, x, y, snake.size, snake.size, rotation);
     } else if (index === 0) {
-      game.drawImage(saba, x - 25, y - 25, snake.size + 20, snake.size + 20, rotation);
+      game.drawImage(saba, x, y, snake.size, snake.size, rotation);
     } else {
-      game.drawImage(keha, x - 25, y - 25, snake.size + 20, snake.size + 20, rotation);
+      game.drawImage(keha, x, y, snake.size, snake.size, rotation);
     }
   },
 
@@ -199,9 +201,12 @@ food = {
     food.size = snake.size;
   let cols = Math.floor(canvas.width / snake.size);
   let rows = Math.floor(canvas.height / snake.size);
-  food.x = Math.floor(Math.random() * cols) * snake.size;
-  food.y = Math.floor(Math.random() * rows) * snake.size;
-  },
+  
+  do {
+    food.x = Math.floor(Math.random() * cols) * snake.size;
+    food.y = Math.floor(Math.random() * rows) * snake.size;
+  } while (snake.sections.some(s => s.x === food.x && s.y === food.y));
+},
 
   draw: function () {
     game.drawImage(foodImage, food.x, food.y, snake.size, snake.size);

@@ -1,0 +1,22 @@
+article, aside, details, figcaption, figure, footer, header,
+hgroup, menu, nav, section { 
+  display: block; 
+}
+body {
+  background-color: #260b52;
+}
+h1 {
+  text-align: center;
+  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 29%, rgba(146, 14, 240, 1) 46%, rgba(144, 213, 255, 1) 61%);;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+p {
+  text-align: center;
+  color: white;
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+  background-color: #6c0fdd;
+}

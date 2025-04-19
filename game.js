@@ -21,12 +21,13 @@ game = {
   fps: 8,
   over: false,
   message: null,
+  
 
   start: function () {
     game.over = false;
-    game.message = null;
+    game.message = null ;
     game.score = 0;
-    game.fps = 8;
+    game.fps = 6;
     snake.init();
     food.set();
   },

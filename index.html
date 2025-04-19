@@ -8,6 +8,7 @@
 <![endif]-->
 <link rel="stylesheet" href="page.css" type="text/css">
 </head>
+<video autoplay muted loop id="BGVideo"><source src="BGVid.mp4" type="video/mp4"></video>
 <body>
 
 <h1>D.O.G snake</h1>
@@ -19,6 +20,23 @@
 <div>
   <button class="button" onclick="window.location.href='OpPage.html'"> Back </button>
   </div>
+
+  <script>
+    const video = document.getElementById('BGVideo');
+    let speed = 9.0; // Alustame kiirusega 8x
+    video.playbackRate = speed;
+  
+    const slowDown = setInterval(() => {
+      if (speed > 1.0) {
+        speed -= 0.10;
+        video.playbackRate = speed;
+      } else {
+        video.playbackRate = 1.0; // normaalne kiirus
+        clearInterval(slowDown);
+      }
+    }, 200);
+  </script>
+  
 <script type="text/javascript" src="game.js"></script>
 </body>
 </html>

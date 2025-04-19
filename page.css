@@ -3,7 +3,6 @@ hgroup, menu, nav, section {
   display: block; 
 }
 body {
-  background-color: #260b52;
 }
 h1 {
   text-align: center;
@@ -38,4 +37,14 @@ button {
   color: white;
   margin-top: 10px;
   background: linear-gradient(90deg,rgba(227, 44, 230, 1) 22%, rgba(146, 14, 240, 1) 52%, rgba(144, 213, 255, 1) 75%);
+}
+
+#BGVideo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1; /* Et video oleks taustal */
 }

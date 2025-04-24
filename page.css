@@ -3,10 +3,11 @@ hgroup, menu, nav, section {
   display: block; 
 }
 body {
+  background-color: transparent;
 }
 h1 {
   text-align: center;
-  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 35%, rgb(131, 13, 216) 51%, rgba(144, 213, 255, 1) 53%);;
+  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 35%, rgb(131, 13, 216) 51%, rgb(146, 210, 250) 53%);;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -47,4 +48,9 @@ button {
   min-height: 100%;
   object-fit: cover;
   z-index: -1; /* Et video oleks taustal */
+}
+
+.message {
+  height: fit-content;
+  width: fit-content;
 }

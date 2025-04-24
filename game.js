@@ -60,7 +60,7 @@ game = {
     if (game.message !== null) {
       context.fillStyle = '#00F';
       context.strokeStyle = '#FFF';
-      context.font = (canvas.height / 10) + 'px Impact';
+      context.font = (canvas.height / 13) + 'px Impact';
       context.textAlign = 'center';
       context.fillText(game.message, canvas.width / 2, canvas.height / 2);
       context.strokeText(game.message, canvas.width / 2, canvas.height / 2);

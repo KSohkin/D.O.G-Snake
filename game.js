@@ -2,6 +2,10 @@ var canvas = document.getElementById("the-game");
 var context = canvas.getContext("2d");
 var game, snake, food;
 
+window.onkeydown = function(e) {
+  return !(e.keyCode === 32);
+};
+
 function gridSnap(val) {
   return Math.floor(val / snake.size) * snake.size;
 }
@@ -18,14 +22,13 @@ foodImage.src = 'SnakePics/d.o.g_food.png';
 
 game = {
   score: 0,
-  fps: 8,
+  fps: 60,
   over: false,
   message: null,
-  
 
   start: function () {
     game.over = false;
-    game.message = null ;
+    game.message = null;
     game.score = 0;
     game.fps = 6;
     snake.init();
@@ -35,7 +38,6 @@ game = {
   stop: function () {
     game.over = true;
     game.message = 'A fatal mistake! - PRESS SPACEBAR';
-
   },
 
   drawBox: function (x, y, size, color) {
@@ -94,17 +96,16 @@ snake = {
     snake.direction = 'left';
     snake.x = gridSnap(canvas.width / 2);
     snake.y = gridSnap(canvas.height / 2);
-    for (let i = 0; i < 6; i++) {
-      snake.sections.push({
-        x: snake.x + i * snake.size,
-        y: snake.y,
-        direction: 'left'
-      });
-    }
+    for (let i = 5; i >= 0; i--) {
+  snake.sections.push({
+    x: snake.x + i * snake.size,
+    y: snake.y,
+    direction: 'left'
+  });
+}
   },
 
   move: function () {
-    // Apply turn if at turn point
     if (snake.turns.length > 0) {
       let turn = snake.turns[0];
       if (snake.x === turn.x && snake.y === turn.y) {
@@ -113,7 +114,6 @@ snake = {
       }
     }
 
-    // Move head
     switch (snake.direction) {
       case 'up': snake.y -= snake.size; break;
       case 'down': snake.y += snake.size; break;
@@ -121,15 +121,14 @@ snake = {
       case 'right': snake.x += snake.size; break;
     }
 
-    snake.checkCollision();
-    snake.checkGrowth();
-
-    // Push new head segment with current direction
     snake.sections.push({
       x: snake.x,
       y: snake.y,
       direction: snake.direction
     });
+
+    snake.checkCollision();
+    snake.checkGrowth();
   },
 
   draw: function () {
@@ -140,8 +139,8 @@ snake = {
 
   drawSection: function(section, pikkus, index) {
     let rotation = 0;
-    let direction = section.direction; // Use the section's direction, not the snake's
-    
+    let direction = section.direction;
+
     switch(direction) {
       case 'left': rotation = -90; break;
       case 'right': rotation = 90; break;
@@ -162,33 +161,35 @@ snake = {
   },
 
   checkCollision: function () {
-    if (snake.isCollision(snake.x, snake.y)) {
+    const head = snake.sections[snake.sections.length - 1];
+
+    if (
+      head.x < 0 ||
+      head.x >= canvas.width ||
+      head.y < 0 ||
+      head.y >= canvas.height
+    ) {
       game.stop();
     }
-  },
 
-  isCollision: function (x, y) {
-    if (
-      x < snake.size / 2 ||
-      x > canvas.width ||
-      y < snake.size / 2 ||
-      y > canvas.height ||
-      snake.sections.slice(0, -1).some(s => s.x === x && s.y === y)
-    ) {
-      return true;
+    for (let i = 0; i < snake.sections.length - 1; i++) {
+      const s = snake.sections[i];
+      if (s.x === head.x && s.y === head.y) {
+        game.stop();
+      }
     }
-    return false;
   },
 
   checkGrowth: function () {
-    if (snake.x === food.x && snake.y === food.y) {
+    const head = snake.sections[snake.sections.length - 1];
+    if (head.x === food.x && head.y === food.y) {
       game.score++;
       if (game.score % 5 === 0 && game.fps < 60) {
         game.fps++;
       }
       food.set();
     } else {
-      snake.sections.shift(); // Remove tail if not growing
+      snake.sections.shift();
     }
   }
 };
@@ -200,14 +201,14 @@ food = {
 
   set: function () {
     food.size = snake.size;
-  let cols = Math.floor(canvas.width / snake.size);
-  let rows = Math.floor(canvas.height / snake.size);
-  
-  do {
-    food.x = Math.floor(Math.random() * cols) * snake.size;
-    food.y = Math.floor(Math.random() * rows) * snake.size;
-  } while (snake.sections.some(s => s.x === food.x && s.y === food.y));
-},
+    let cols = Math.floor(canvas.width / snake.size);
+    let rows = Math.floor(canvas.height / snake.size);
+
+    do {
+      food.x = Math.floor(Math.random() * cols) * snake.size;
+      food.y = Math.floor(Math.random() * rows) * snake.size;
+    } while (snake.sections.some(s => s.x === food.x && s.y === food.y));
+  },
 
   draw: function () {
     game.drawImage(foodImage, food.x, food.y, snake.size, snake.size);
@@ -240,8 +241,8 @@ function getKey(value) {
 
 addEventListener("keydown", function (e) {
   var lastKey = getKey(e.keyCode);
-  if (['up', 'down', 'left', 'right'].includes(lastKey) &&
-    lastKey !== inverseDirection[snake.direction]) {
+  if (["up", "down", "left", "right"].includes(lastKey) &&
+      lastKey !== inverseDirection[snake.direction]) {
 
     snake.turns.push({
       x: snake.x,
@@ -249,7 +250,7 @@ addEventListener("keydown", function (e) {
       direction: lastKey
     });
 
-  } else if (['start_game'].includes(lastKey) && game.over) {
+  } else if (["start_game"].includes(lastKey) && game.over) {
     game.start();
   }
 }, false);

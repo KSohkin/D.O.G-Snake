@@ -7,26 +7,33 @@ body {
 }
 h1 {
   text-align: center;
-  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 35%, rgb(131, 13, 216) 51%, rgb(146, 210, 250) 53%);;
+  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 35%, rgb(131, 13, 216) 51%, rgb(146, 210, 250) 60%);;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 0.5px white;
 }
 p {
   text-align: center;
   color: white;
 }
 canvas {
-  display: block;
+  display: flex;
   margin: 0 auto;
   background-color: #6c0fdd;
+  position: absolute;
+
 }
 
 .button-cont {
   gap: 30px;
   margin-top: 150px;
+  z-index: +2;
 }
 
 button {
+  position: relative;
+  z-index: +2;
+  bottom: 120px;
   width: 100px;
   height: 50px;
   padding: 10px;
@@ -37,7 +44,7 @@ button {
   font-size: 16px;
   color: white;
   margin-top: 10px;
-  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 22%, rgba(146, 14, 240, 1) 52%, rgba(144, 213, 255, 1) 75%);
+  background: linear-gradient(90deg,rgba(227, 44, 230, 1) 35%, rgb(131, 13, 216) 51%, rgb(146, 210, 250) 53%);;
 }
 
 #BGVideo {
@@ -53,4 +60,21 @@ button {
 .message {
   height: fit-content;
   width: fit-content;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: center; /* horizontally center the group */
+  align-items: start; /* align tops */
+  gap: 0; /* remove space between image and canvas */
+  margin-top: 70px;
+  position: relative;
+  max-height: 800px;
+}
+
+.game-wrapper img {
+  position: relative;
+  scale: 1.10;
+  top: -213px;
+  z-index: +1;
 }

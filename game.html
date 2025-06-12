@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>D.O.G Snake - Canvas Snake Game</title>
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="game.css" type="text/css">
+</head>
+<video autoplay muted loop id="BGVideo"><source src="BGVid.mp4" type="video/mp4"></video>
+<body>
+
+
+<div class="game-wrapper">
+  <img src="SnakePics/2frame_DOG_transparent.png" alt="Frame">
+  <canvas id="the-game" width="720" height="640"></canvas>
+</div>
+
+
+<div>
+  <button class="button" onclick="window.location.href='Index.html'"> Back </button>
+  </div>
+
+
+  <script>
+    const video = document.getElementById('BGVideo');
+    let speed = 7.0; // Alustame kiirusega 7x
+    video.playbackRate = speed;
+  
+    const slowDown = setInterval(() => {
+      if (speed > 1.0) {
+        speed -= 0.10;
+        video.playbackRate = speed;
+      } else {
+        video.playbackRate = 1.0; // normaalne kiirus
+        clearInterval(slowDown);
+      }
+    }, 200);
+  </script>
+  
+<script type="text/javascript" src="game.js"></script>
+</body>
+</html>

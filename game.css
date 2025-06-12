@@ -75,6 +75,7 @@ button {
 .game-wrapper img {
   position: relative;
   scale: 1.10;
-  top: -213px;
+  top: -211px;
   z-index: +1;
+  max-height: 1000px;
 }
